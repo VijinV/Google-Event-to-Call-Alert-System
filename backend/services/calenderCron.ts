@@ -34,7 +34,23 @@ export const calenderCron = cron.schedule("* * * * *", async () => {
         orderBy: "startTime",
       });
 
-      const events = response.data.items || [];
+      if (!response.data.items?.length) {
+        return;
+      }
+
+      /** Interview Update */
+
+      let events: any[] = [];
+
+      for (const event of response.data.items) {
+        const startTime = new Date(event.start?.dateTime!);
+        console.log(startTime);
+        console.log(now < startTime);
+        if (now < startTime) {
+          events.push(event);
+        }
+      }
+      /**      */
 
       const existingEventIds = new Set(user.calls.map((call: any) => call.id));
 

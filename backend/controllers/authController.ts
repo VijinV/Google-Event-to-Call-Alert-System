@@ -70,7 +70,6 @@ export const googleAuthController = async (req: any, res: any) => {
         email: user.getPayload()!.email,
         image: user.getPayload()!.picture,
       },
-      token,
     });
   } catch (error) {
     console.log(error);
